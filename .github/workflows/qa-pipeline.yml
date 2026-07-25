@@ -24,7 +24,10 @@ jobs:
           cache: maven
 
       - name: Run regression suite
-        run: mvn test -Dsuite=testng-regression.xml
+        env:
+          REQRES_API_KEY: ${{ secrets.REQRES_API_KEY }}
+          REQRES_PROJECT_ID: ${{ secrets.REQRES_PROJECT_ID }}
+	run: mvn test -Dsuite=testng-regression.xml
         continue-on-error: true   # let the pipeline continue to publish the report even if a test fails
 
       - name: Get Allure history
